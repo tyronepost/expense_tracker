@@ -24,6 +24,7 @@ module ExpenseTracker
         'amount' => 15.75,
         'date' => '2017-06-10'
       })
+
       groceries = post_expense({
         'payee' => 'Whole Foods',
         'amount' => 95.20,
@@ -33,7 +34,7 @@ module ExpenseTracker
       get '/expenses/2017-06-10'
       expect(last_response.status).to eq(200)
       expenses = JSON.parse(last_response.body)
-      expect(expenses).to contain_exactly(coffee, zoo)
+      expect(expenses).to contain_exactly(coffee, zoo, groceries)
     end
 
     def post_expense(expense)
