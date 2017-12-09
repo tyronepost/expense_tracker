@@ -1,9 +1,10 @@
 require 'sinatra/base'
 require 'json'
 
+require_relative 'ledger'
+
 module ExpenseTracker
   class API < Sinatra::Base
-
     def initialize(ledger: Ledger.new)
       @ledger = ledger
       super()
@@ -22,7 +23,9 @@ module ExpenseTracker
     end
 
     get '/expenses/:date' do
-      JSON.generate([])
+      expenses = @ledger.expenses_on(params['date'])
+      json = expenses.map { |result| { 'id' =>  result.expense_id } }
+      JSON.generate(json)
     end
   end
 end
