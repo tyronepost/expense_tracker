@@ -73,6 +73,7 @@ module ExpenseTracker
           get "expenses/#{date}"
           expect(last_response.status).to eq(200)
         end
+
       end
 
       context 'when there are no expenses on the given date' do
