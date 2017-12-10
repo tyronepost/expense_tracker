@@ -79,8 +79,8 @@ module ExpenseTracker
         let (:date) { '2017-06-10' }
 
         before do
-          allow(ledger).to receive(:expenses_on)
-            .with(date)
+          allow(ledger).to receive(:expense)
+            .with(date: date)
             .and_return([])
         end
 
