@@ -24,8 +24,8 @@ module ExpenseTracker
 
     get '/expenses/:date' do
       expenses = @ledger.expenses_on(params['date'])
-      json = expenses.map { |result| { 'id' =>  result.expense_id } }
-      JSON.generate(json)
+      json = expenses.map { |result| { 'id' =>  result[:id] } }
+      JSON.generate(expenses)
     end
   end
 end

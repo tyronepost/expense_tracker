@@ -4,7 +4,7 @@ require 'json'
 require_relative '../../app/api'
 
 module ExpenseTracker
-  RSpec.describe 'Expense Tracker API' do
+  RSpec.describe 'Expense Tracker API', :db do
     include Rack::Test::Methods
 
     def app
@@ -12,8 +12,6 @@ module ExpenseTracker
     end
 
     it 'records submitted expenses' do
-      pending 'Need to persist expenses'
-
       coffee = post_expense({
         'payee' => 'Starbucks',
         'amount' => 5.75,
@@ -34,7 +32,7 @@ module ExpenseTracker
       get '/expenses/2017-06-10'
       expect(last_response.status).to eq(200)
       expenses = JSON.parse(last_response.body)
-      expect(expenses).to contain_exactly(coffee, zoo, groceries)
+      expect(expenses).to contain_exactly(coffee, zoo)
     end
 
     def post_expense(expense)
